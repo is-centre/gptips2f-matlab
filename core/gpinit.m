@@ -78,11 +78,11 @@ if ~gp.runcontrol.quiet
     
     disp(' ');
     disp('-------------------------------------------------------------------------');
-    disp('GPTIPS 2');
-    disp('Symbolic data mining platform for MATLAB');
-    disp('Copyright (C) Dominic Searson 2009-2015');
+    disp('GPTIPS 2F');
+    disp('Symbolic data mining platform for MATLAB evolved');
+    disp('Copyright (C) Dominic Searson* 2009-2015, Aleksei Tepljakov& 2017');
     disp(' ');
-    disp('Contact: searson@gmail.com');
+    disp('Contact: * - searson@gmail.com, & - alex@starspirals.net');
     disp(' ');
     
     disp('This program is free software: you can redistribute it and/or modify');
@@ -197,6 +197,9 @@ end
 %Exclusions are because 'x' is reserved for input nodes, 'e' is used for
 %expressing numbers in standard form by Matlab and, by default, 'i' and 'j'
 %represent sqrt(-1).
+
+% In this version of the toolbox we also skip 'a' because it is used to
+% denote automatically defined functions (ADFs).
 charnum = 96; skip = 0;
 for i=1:gp.nodes.functions.num_active
     while true      %e                          %i                    %j                         %x

@@ -45,6 +45,7 @@ range = gp.nodes.const.range;
 rangesize = gp.nodes.const.rangesize;
 fi = gp.nodes.const.format;
 ERCgenerated = false;
+PRCgenerated = false;
 
 afid_argt0  = gp.nodes.functions.afid_argt0; %functions with arity>0
 afid_areq0  = gp.nodes.functions.afid_areq0; %functions with arity=0;
@@ -199,6 +200,11 @@ if ERCgenerated
         treestr = strrep(main_tree,'$',arg);
         constInd = strfind(treestr,'?');
     end
+    
+end
+
+% Preset random constant processing
+if PRCgenerated
     
 end
 

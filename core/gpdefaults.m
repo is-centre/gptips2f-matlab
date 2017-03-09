@@ -77,12 +77,31 @@ gp.nodes.functions.arity = [];
 gp.nodes.functions.active = [];
 gp.nodes.functions = orderfields(gp.nodes.functions);
 
+% AT: Automatically Defined Functions (ADFs)
+gp.nodes.adf.about = 'Automatically defined functions';
+gp.nodes.adf.names = [];
+gp.nodes.adf.exprs = [];
+gp.nodes.adf.seeds = [];
+gp.nodes.adf.evals = [];
+gp.nodes.adf.arity = [];
+gp.nodes.adf.active = [];
+gp.nodes.adf = orderfields(gp.nodes.adf);
+
 gp.nodes.const.about = 'Ephemeral random constants';     
 gp.nodes.const.num_dec_places = 4;  
 gp.nodes.const.range = [-10 10];     %ERC range        
 gp.nodes.const.p_ERC = 0.1; %probability of generating an ERC when creating a leaf node
 gp.nodes.const.p_int = 0; %probability of generating an integer ERC
 gp.nodes.const = orderfields(gp.nodes.const);
+
+% AT: Preset random constants. These are inferior to
+% ERCs in that they can appear only when an ERC is generated.
+% The probability value below then determines whether
+% the ERC will actually be a PRC.
+gp.nodes.pconst.about = 'Preset ephemeral random constants';
+gp.nodes.pconst.set = []; % Values are randomly selected from a fixed set
+gp.nodes.pconst.p_PRC = 0.1; % Probability of appearing instead of a ERC
+gp.nodes.pconst = orderfields(gp.nodes.pconst);
 
 gp.nodes.inputs.num_inp = []; 
 gp.nodes.inputs.names = cell(0);
