@@ -79,12 +79,12 @@ gp.nodes.functions = orderfields(gp.nodes.functions);
 
 % AT: Automatically Defined Functions (ADFs)
 gp.nodes.adf.about = 'Automatically defined functions';
-gp.nodes.adf.names = [];
-gp.nodes.adf.exprs = [];
-gp.nodes.adf.seeds = [];
-gp.nodes.adf.evals = [];
-gp.nodes.adf.arity = [];
-gp.nodes.adf.active = [];
+gp.nodes.adf.names = []; % The names as in {'adf1', 'adf2', ...}
+gp.nodes.adf.exprs = []; % User configurable: the expressions for ADFs as strings in a cell array
+gp.nodes.adf.seeds = []; % Gene seeds (automatically populated)
+gp.nodes.adf.evals = []; % Anonymous functions implementing the expressions as strings
+gp.nodes.adf.arity = []; % Automatically filled
+gp.nodes.adf.active = []; % User configurable: currently active ADFs
 gp.nodes.adf = orderfields(gp.nodes.adf);
 
 gp.nodes.const.about = 'Ephemeral random constants';     
