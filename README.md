@@ -10,7 +10,7 @@ GPTIPS2F is the evolution of the second iteration of the MATLAB toolbox develope
 
 ### Installation ###
 
-* Run the code 
+Run the code 
 ```
 #!matlab
 
