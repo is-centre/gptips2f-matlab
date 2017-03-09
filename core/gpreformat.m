@@ -118,7 +118,25 @@ for j=1:len
     if useAlias && ~isempty(gp.nodes.inputs.names)
         varInds = find(~cellfun(@isempty,gp.nodes.inputs.namesPlain));
         for i = 1:numel(varInds)
-            tempstr = strrep(tempstr,['(x' int2str(varInds(i)) ')'],['(' strtrim(gp.nodes.inputs.namesPlain{varInds(i)}) ')']);
+            % AT: Need to take care of more cases here.
+            % Trying solution with more replacements.
+            tempstr = strrep(tempstr,['(x' int2str(varInds(i)) ')'],...
+                ['(' strtrim(gp.nodes.inputs.namesPlain{varInds(i)}) ')']);
+            
+            % TODO: gut tells me there is a potential bug somewhere
+            % However, will implement anyway due to added convenience
+            % Could try to do this with regular expressions as well.
+            
+            % All other cases
+            tempstr = strrep(tempstr,['(x' int2str(varInds(i)) ','],...
+                ['(' strtrim(gp.nodes.inputs.namesPlain{varInds(i)}) ',']);
+            
+            tempstr = strrep(tempstr,[',x' int2str(varInds(i)) ')'],...
+                [',' strtrim(gp.nodes.inputs.namesPlain{varInds(i)}) ')']);
+            
+            tempstr = strrep(tempstr,[',x' int2str(varInds(i)) ','],...
+                [',' strtrim(gp.nodes.inputs.namesPlain{varInds(i)}) ',']);
+            
         end
     end
     refexpr{j} = tempstr;
