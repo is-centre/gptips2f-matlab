@@ -79,12 +79,13 @@ gp.nodes.functions = orderfields(gp.nodes.functions);
 
 % AT: Automatically Defined Functions (ADFs)
 gp.nodes.adf.about = 'Automatically defined functions';
-gp.nodes.adf.names = []; % The names as in {'adf1', 'adf2', ...}
-gp.nodes.adf.exprs = []; % User configurable: the expressions for ADFs as strings in a cell array
-gp.nodes.adf.seeds = []; % Gene seeds (automatically populated)
-gp.nodes.adf.evals = []; % Anonymous functions implementing the expressions as strings
-gp.nodes.adf.arity = []; % Automatically filled
+gp.nodes.adf.use = false; % Disabled by default
+gp.nodes.adf.name = []; % The names as in {'adf1', 'adf2', ...}
+gp.nodes.adf.expr = []; % User configurable: the expressions for ADFs as strings in a cell array
+gp.nodes.adf.seed = []; % Gene seeds (automatically populated)
+gp.nodes.adf.eval = []; % Anonymous functions implementing the expressions as strings
 gp.nodes.adf.active = []; % User configurable: currently active ADFs
+gp.nodes.adf.p_gen = 0.05; % User configurable: probability of seeding an ADF from the list in the initial population
 gp.nodes.adf = orderfields(gp.nodes.adf);
 
 gp.nodes.const.about = 'Ephemeral random constants';     
@@ -94,13 +95,12 @@ gp.nodes.const.p_ERC = 0.1; %probability of generating an ERC when creating a le
 gp.nodes.const.p_int = 0; %probability of generating an integer ERC
 gp.nodes.const = orderfields(gp.nodes.const);
 
-% AT: Preset random constants. These are inferior to
-% ERCs in that they can appear only when an ERC is generated.
-% The probability value below then determines whether
-% the ERC will actually be a PRC.
+% AT: Preset random constants. They can appear only when an ERC is
+% generated OR when ADFs are used. In the former case, the probability
+% value below then determines whether the ERC will actually be a PRC.
 gp.nodes.pconst.about = 'Preset ephemeral random constants';
-gp.nodes.pconst.set = []; % Values are randomly selected from a fixed set
-gp.nodes.pconst.p_PRC = 0.1; % Probability of appearing instead of a ERC
+gp.nodes.pconst.set = [1]; % Values are randomly selected from a fixed set
+gp.nodes.pconst.p_PRC = 0.0; % Probability of appearing instead of a ERC; disabled by default
 gp.nodes.pconst = orderfields(gp.nodes.pconst);
 
 gp.nodes.inputs.num_inp = []; 

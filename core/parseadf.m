@@ -4,22 +4,30 @@ function [fcn, newexpr, args, seed] = parseadf(expr, opt)
 % Calling sequence:
 % [FCN, NEWEXPR, ARGS, SEED] = PARSEADF(EXPR, OPT)
 %
-% where FCN contains the anonymous function for the direct evaluation of the
-% expression, NEWEXPR contains the new expression string with generated
-% arguments and ARGS contains a string containing these arguments encolsed
-% in ( ). SEED contains the gene seed for generating the initial population.
-% The input argument OPT is a string that contains either 's' or 'f'. In
-% case of 's' the function outputs FCN as string (default), and in case of
-% 'f' an anonymous function handle is returned.
+% where FCN contains the string for the anonymous function or a handle,
+% depending on the option, NEWEXPR contains the new expression string with
+% generated arguments and ARGS contains a string containing these arguments
+% encolsed in ( ). SEED contains the gene seed for generating the initial
+% population. The input argument OPT is a string that contains either 's'
+% or 'f'. In case of 's' the function outputs FCN as string (default), and
+% in case of 'f' an anonymous function handle is returned.
 %
 % When designing your expressions, use any valid functions with the
 % following symbols representing input arguments:
 %
-% $ - Free connection point
-% # - Preset random constant (PRC) point that later turns into an ERC
-% ? - An ephemeral random constant (ERC) point
+% $n - Free connection point
+% #m - Preset random constant (PRC) point that later turns into an ERC
+% ?k - An ephemeral random constant (ERC) point
+% where n, m, and k are indices. You can thus have the same terminal
+% applied as several arguments in the function. The use of indices is
+% mandatory. All the input arguments are ultimately replaced by x1,x2,x3,..
+% and the corresponding expression (or anonymous function handle) is
+% returned.
 %
-% For example: 'times(#,plus($,?))'
+% For example, input argument 'times($1,times(#1,plus($1,?1)))'
+%
+% Returns result '@(x1,x2,x3) times(x2,times(x1,plus(x2,x3)))'
+% with seed (#,$,?), the latter used during initial tree generation.
 %
 % Note that the function must accept at least one argument. Depending on
 % the context you can include constants into function calls. In the
@@ -42,25 +50,23 @@ if nargin < 2
 end
 
 % Parse the arguments of the array
-argname = 'x'; % Default argument is "x"
-argind = 1;    % The index of the argument
-seed = '';     % The seed is used when the initial population is built
-exprind = 1;   % The point from which to take a piece of the old expr
-newexpr = '';  % Updated expression with proper arguments inserted
-for k=1:length(expr)
-    switch expr(k)
-        case {'$', '#', '?'}
-            seed = [seed expr(k) ','];
-            newexpr = [newexpr expr(exprind:(k-1)) argname num2str(argind)];
-            exprind = k+1; argind = argind + 1;
-        otherwise
-            % Do nothing
-    end
-end
+argname = 'x';  % Default argument is "x"
+argind = 1;     % The index of the argument
+seed = '';      % The seed is used when the initial population is built
+newexpr = expr; % Updated expression with proper arguments inserted
 
-% Finalize the expression
-if exprind <= length(expr)
-    newexpr = [newexpr expr(exprind:end)];
+% Parse the expression using regex
+regex = '[\$\#\?][0-9]+';
+params = unique(regexp(expr, regex, 'match'));
+
+for k=1:length(params)
+    % Assign x1, x2, x3, etc. to corresponding arguments
+    oldarg = params{k};
+    newexpr = strrep(newexpr, oldarg, [argname num2str(argind)]);
+    argind = argind + 1;
+    
+    % Construct the seed
+    seed = [seed oldarg(1) ','];
 end
 
 % Are there any arguments?

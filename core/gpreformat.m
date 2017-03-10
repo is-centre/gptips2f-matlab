@@ -51,7 +51,7 @@ len = length(array_in);
 refexpr = cell(1,len);
 
 %temporarily add power, times, exp to function set (if not present) to
-%allow improved model simplication
+%allow improved model simplification
 gp = addPower(gp);
 gp = addTimes(gp);
 gp = addexp(gp);

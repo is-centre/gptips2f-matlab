@@ -18,6 +18,9 @@ if gp.runcontrol.parallel.enable && gp.runcontrol.parallel.ok
     %regular version
 else
     
+    % If ADFs are used, make them known to this function
+    if gp.nodes.adf.use, assignadf(gp); end
+    
     for i = 1:gp.runcontrol.pop_size
         
         gp.state.current_individual = i;

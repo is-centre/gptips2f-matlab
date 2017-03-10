@@ -320,6 +320,9 @@ function gpmodel = regressmulti_fitfun_full_stats(gpmodel, evalstr,gp,theta,tbxS
 %    GPMODEL. Also sets warning flags for 'test' and 'validation' data sets
 %    if the model fails to predict for them.
 
+% If ADFs are used, make them known to this function
+if gp.nodes.adf.use, assignadf(gp); end
+
 %statistics toolbox stats off by default
 if nargin < 4
     tbxStats = false;

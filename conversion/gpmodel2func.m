@@ -51,6 +51,9 @@ if ~strncmpi('regressmulti', func2str(gp.fitness.fitfun),12)
     error('GPMODEL2FUNC may only be used for multigene symbolic regression problems.');
 end
 
+% If ADFs are used, make them known to this function
+if gp.nodes.adf.use, assignadf(gp); end
+
 s = gpmodel2sym(gp,ID);
 
 if isempty(s)
@@ -58,3 +61,10 @@ if isempty(s)
 end
 
 f = matlabFunction(s);
+
+% If ADFs are used, make them known to this function, and re-evaluate
+if gp.nodes.adf.use
+    assignadf(gp);
+    f = func2str(f);
+    f = eval(f);
+end

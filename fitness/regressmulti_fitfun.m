@@ -86,6 +86,9 @@ theta=[];ypredtrain=[];fitnessTest=[];ypredtest=[];pvals=[];
 r2train=[];r2test=[];r2val=[];geneOutputs=[];geneOutputsTest=[];
 geneOutputsVal=[];
 
+% If ADFs are used, make them known to this function
+if gp.nodes.adf.use, assignadf(gp); end
+
 % process evalstr with regex to allow direct access to data matrices
 pat = 'x(\d+)';
 evalstr = regexprep(evalstr,pat,'gp.userdata.xtrain(:,$1)');

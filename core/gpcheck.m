@@ -200,6 +200,20 @@ if numel(gp.nodes.inputs.names) > gp.nodes.inputs.num_inp
     error('The supplied input variables ''name'' vector in gp.nodes.inputs.names contains more entries than input variables.');
 end
 
+% Check ADF settings
+if ~isempty(gp.nodes.adf.name) && ~isa(gp.nodes.adf.name, 'cell')
+    error('The parameter gp.nodes.adf.name must be a cell array of strings with ADF expressions.');
+end
+
+if gp.nodes.adf.p_gen < 0 || gp.nodes.adf.p_gen > 1
+    error('gp.nodes.adf.p_gen must be >= 0 and <= 1');
+end
+
+% Check PRC settings
+if gp.nodes.pconst.p_PRC < 0 || gp.nodes.pconst.p_PRC > 1
+    error('gp.nodes.pconst.p_PRC must be >= 0 and <= 1');
+end
+
 %check and process user supplied variable aliases. For symbolic math
 %toolbox lookup: remove whitespace, check entries are unique & remove
 %markup

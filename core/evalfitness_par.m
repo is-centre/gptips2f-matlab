@@ -29,6 +29,9 @@ else
     usecache = false;
 end
 
+    % If ADFs are used, make them known to this function
+    if gp.nodes.adf.use, assignadf(gp); end
+
 parfor i = 1:popSize;
     
     %assign copy of gp inside parfor loop to a temp struct

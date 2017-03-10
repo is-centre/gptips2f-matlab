@@ -31,7 +31,7 @@ function position = picknode(expr,nodetype,gp)
 %   See also EXTRACT, MUTATE, CROSSOVER
 
 %mask negative constants
-x = strrep(expr,'[-','[#');    
+x = strrep(expr,'[-','["');    
 
 if nodetype == 0 %pick any node
     

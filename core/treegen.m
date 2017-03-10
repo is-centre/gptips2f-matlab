@@ -66,9 +66,23 @@ if buildMethod == 3
     buildMethod = ceil(rand * 2);  %set either to 'full' or 'grow' for duration of function
 end
 
-%initial string structure (nodes/subtrees to be built are marked with the $
-%token)
-treestr = '($)';
+% Initial string structure (nodes/subtrees to be built are marked with the $
+%token). If ADFs are enabled, generate one of the ADFs from the list with
+%given probability.
+if gp.nodes.adf.use && rand <= gp.nodes.adf.p_gen
+   % Choose an ADF to generate from the seed list
+   treestr = ...
+      ['(' ...
+      gp.nodes.adf.use_seeds{ceil(rand*length(gp.nodes.adf.use_seeds))} ...
+      ')'];
+   
+   % Make sure constants are actually generated at the end of tree creation
+   if ~isempty(findstr('?',treestr)), ERCgenerated = true; end
+   if ~isempty(findstr('#',treestr)), PRCgenerated = true; end
+   
+else
+   treestr = '($)';
+end
 
 %recurse through branches
 while true
@@ -158,9 +172,16 @@ while true
                 inpChoice = ceil(rand * num_inp);
                 treestr = strrep(treestr,'@',['x' sprintf('%d',inpChoice)]);
                 
-            else %use an ERC token (? character)
-                treestr = strrep(treestr,'@','?');
-                ERCgenerated = true;
+            else %use an ERC *or* PRC token (? or # character, respectively)
+                % Which token to use?
+                if rand <= gp.nodes.pconst.p_PRC
+                    tok = '#';
+                    PRCgenerated = true;
+                else
+                    tok = '?';
+                    ERCgenerated = true;
+                end
+                treestr = strrep(treestr,'@',tok);
             end
         end
         
@@ -205,6 +226,26 @@ end
 
 % Preset random constant processing
 if PRCgenerated
+    
+    %find PRC locations
+    constInd = strfind(treestr,'#');
+    numConstants = numel(constInd);
+    PRCs = gp.nodes.pconst.set;
+    numPRCs = length(PRCs);
+    
+    for k=1:numConstants
+        myconst = PRCs(ceil(rand*numPRCs));
+        arg = ['[' sprintf(fi,myconst) ']'];
+    end
+    
+    % Loop through PRC locations and replace with constant values
+    % that are randomly picked from a predefined set
+    for k=1:numConstants;
+        % Replace token with const
+        main_tree = extract(constInd(1),treestr);
+        treestr = strrep(main_tree,'$',arg);
+        constInd = strfind(treestr,'#');
+    end
     
 end
 

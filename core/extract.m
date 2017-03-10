@@ -50,7 +50,13 @@ elseif cnode == '[' %ERC
     mainTree = [parentExpr(1:iminus) '$' parentExpr(final_ind+1:endpos)];
     return
     
-elseif cnode=='?' %ERC token
+elseif cnode=='?' % ERC token
+    subTree = cnode;
+    mainTree = parentExpr;
+    mainTree(index) = '$';
+    return
+    
+elseif cnode=='#' % PRC token
     subTree = cnode;
     mainTree = parentExpr;
     mainTree(index) = '$';
