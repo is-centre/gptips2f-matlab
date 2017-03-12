@@ -85,8 +85,8 @@ else
 end
 
 %recurse through branches
-while true
-    
+while true         
+  
     %find leftmost node token $ and store string position
     nodeTokenInd = strfind(treestr,'$');
     
@@ -109,7 +109,7 @@ while true
     
     %choose type of node to insert based on depth and building method. If
     %root node then pick a non-terminal node (unless otherwise specified).
-    if depth == 1
+    if depth == 1 || (gp.nodes.adf.use && depth == 2) 
         nodeType = 1; % 1=internal 2=terminal 3=either
         if maxDepth == 1 %but if max_depth is 1 must always pick a terminal
             nodeType = 2;
@@ -119,7 +119,9 @@ while true
         %function with arity>0
     elseif buildMethod == 1 && depth < maxDepth
         nodeType = 1;
-    elseif depth == maxDepth % if depth is max_depth then just pick terminals
+        % TODO: temporary solution, must find out whether there is conflict
+        % between this condition and the fulfilment of maximum tree depth
+    elseif depth >= maxDepth % if depth is max_depth then just pick terminals
         nodeType = 2;
     else %pick either with equal prob.
         nodeType = ceil(rand * 2);
