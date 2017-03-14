@@ -146,6 +146,12 @@ if ~gp.runcontrol.quiet
         disp(['Constants range:         [' num2str(gp.nodes.const.range) ']']);
     end
     
+    if gp.nodes.pconst.p_PRC < eps
+        disp('Using no preset constants');
+    else
+        disp(['Preset Constants array:  [' sprintf('%.2f ', gp.nodes.pconst.set) ']']);
+    end
+    
     if gp.fitness.complexityMeasure
         disp('Complexity measure:      expressional');
     else

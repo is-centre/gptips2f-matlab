@@ -36,6 +36,9 @@ if (gp.state.count == 1) && (~isfield(gp.userdata,'xval')) || (~isfield(gp.userd
     error('Cannot perform holdout validation because no validation data was found.');
 end
 
+% If ADFs are used, make them known to this function
+if gp.nodes.adf.use, assignadf(gp); end
+
 %get evalstr for current 'best' individual on training data
 evalstr = gp.results.best.eval_individual;
 
