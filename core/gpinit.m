@@ -134,6 +134,16 @@ if ~gp.runcontrol.quiet
     disp(['Max tree depth:          ' int2str(gp.treedef.max_depth)]);
     disp(['Max nodes per tree:      ' int2str(gp.treedef.max_nodes)]);
     disp(['Using function set:     ' fns]);
+    
+    % If ADFs are used, display the list here
+    % TODO: maybe overwhelming? in that case, limit to, e.g., 10-15 entries
+    if gp.nodes.adf.use
+        disp('List of ADF functions:');
+        for k=1:length(gp.nodes.adf.name)
+           disp(['   ' gp.nodes.adf.name{k} ': ' gp.nodes.adf.eval{k}]); 
+        end
+    end
+    
     disp(['Number of inputs:        ' int2str(gp.nodes.inputs.num_inp)]);
     
     if gp.genes.multigene

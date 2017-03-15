@@ -1,4 +1,4 @@
-function [fitness,gp,theta,ypredtrain,fitnessTest,ypredtest,pvals,r2train,r2test,r2val,geneOutputs,geneOutputsTest,geneOutputsVal]=regressmulti_fitfun(evalstr,gp)
+function [fitness,gp,theta,ypredtrain,fitnessTest,ypredtest,pvals,r2train,r2test,r2val,geneOutputs,geneOutputsTest,geneOutputsVal,ypredval]=regressmulti_fitfun(evalstr,gp)
 %REGRESSMULTI_FITFUN Fitness function for multigene symbolic regression.
 %
 %   This is the default fitness function for multigene symbolic regression
