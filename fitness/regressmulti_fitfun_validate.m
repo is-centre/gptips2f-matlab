@@ -75,11 +75,12 @@ ypredval = gene_outputs * theta;
 valfitness = sqrt(mean((y-ypredval).^2));
 
 %on 1st gen, initialise validation set info in the GP structure
-if gp.state.count == 1
+if ~gp.state.init_val
     gp.results.history.valfitness(1:gp.runcontrol.num_gen,1) = 0;
     gp.results.history.valfitness(1) = valfitness;
     gp.results.valbest = gp.results.best;
     gp.results.valbest.valfitness = valfitness;
+    gp.state.init_val = true;
 end
 
 gp.results.best.valfitness = valfitness;

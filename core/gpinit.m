@@ -27,6 +27,7 @@ end
 
 %initialise some state and tracker variables
 gp.state.count = 1;
+gp.state.init_val = false; % AT: fixes bug where for some reason valbest is not generated on first generation
 gp.state.best.fitness = [];
 gp.state.best.individual = [];
 gp.state.run_completed = false;

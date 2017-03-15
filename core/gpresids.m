@@ -220,7 +220,7 @@ if nargout == 0
     stem(t(ind), err(ind), 'k', 'LineWidth', 2);
     xlabel('Sample');
     ylabel('Output error');
-    title(['Resids for ' residTxt '. Mean squared error: ' num2str(mse) '; Max abs error: ' num2str(maxerror)]);
+    title(['Mean squared error: ' num2str(mse) '; Max abs error: ' num2str(maxerror)]);
     grid;
     
     subplot(2,1,2);
@@ -233,7 +233,7 @@ if nargout == 0
     title(['Autocorrelation of residuals (with P=' num2str(conf) ' confidence)']);
     
     set(h, 'NumberTitle', 'off');
-    set(h, 'Name', 'Residual analysis');
+    set(h, 'Name', ['Resid. analysis: ' residTxt]);
     
 end
 
