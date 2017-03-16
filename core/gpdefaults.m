@@ -114,7 +114,7 @@ gp.info.lastFilter = []; %the last GPMODELFILTER to be applied
 gp.info.merged = 0;  %true if this population is the result of merged independent runs
 gp.info.mergedPopSizes = []; %a list of the population sizes that were merged to create the current one
 gp.info.duplicatesRemoved = false;
-gp.info.version = 'GPTIPS 2 (22.5.15)';
+gp.info.version = 'GPTIPS 2F (15.3.17)';
 
 %genes
 gp.genes.about = 'Multigene';
