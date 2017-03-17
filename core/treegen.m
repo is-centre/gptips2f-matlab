@@ -70,23 +70,23 @@ end
 %token). If ADFs are enabled, generate one of the ADFs from the list with
 %given probability.
 if gp.nodes.adf.use && rand <= gp.nodes.adf.p_gen
-   % Choose an ADF to generate from the seed list
-   treestr = ...
-      ['(' ...
-      gp.nodes.adf.use_seeds{ceil(rand*length(gp.nodes.adf.use_seeds))} ...
-      ')'];
-   
-   % Make sure constants are actually generated at the end of tree creation
-   if ~isempty(findstr('?',treestr)), ERCgenerated = true; end
-   if ~isempty(findstr('#',treestr)), PRCgenerated = true; end
-   
+    % Choose an ADF to generate from the seed list
+    treestr = ...
+        ['(' ...
+        gp.nodes.adf.use_seeds{ceil(rand*length(gp.nodes.adf.use_seeds))} ...
+        ')'];
+    
+    % Make sure constants are actually generated at the end of tree creation
+    if ~isempty(strfind(treestr,'?')), ERCgenerated = true; end
+    if ~isempty(strfind(treestr,'#')), PRCgenerated = true; end
+    
 else
-   treestr = '($)';
+    treestr = '($)';
 end
 
 %recurse through branches
-while true         
-  
+while true
+    
     %find leftmost node token $ and store string position
     nodeTokenInd = strfind(treestr,'$');
     
@@ -109,7 +109,7 @@ while true
     
     %choose type of node to insert based on depth and building method. If
     %root node then pick a non-terminal node (unless otherwise specified).
-    if depth == 1 || (gp.nodes.adf.use && depth == 2) 
+    if depth == 1 || (gp.nodes.adf.use && depth == 2)
         nodeType = 1; % 1=internal 2=terminal 3=either
         if maxDepth == 1 %but if max_depth is 1 must always pick a terminal
             nodeType = 2;
@@ -132,16 +132,35 @@ while true
         funName = afid_argt0(funChoice);
         numFunArgs = arity_argt0(funChoice);
         
-        %create appropriate replacement string e.g. a($,$) for 2 argument
-        %function
-        funRepStr = [funName '($'];
-        if numFunArgs > 1
-            for j=2:numFunArgs
-                funRepStr = [funRepStr ',$'];
+        funRepStr = '';
+        
+        % For ADFs, check if argument enforcing is turned on
+        if gp.nodes.adf.use && gp.nodes.adf.force
+            
+            % Check whether this function is an ADF
+            adfind = strfind(gp.nodes.adf.seed_str, funName);
+            if ~isempty(adfind)
+                funRepStr = gp.nodes.adf.use_seeds{adfind(1)};
+                % Make sure constants are actually generated at the end of tree creation
+                if ~isempty(strfind(funRepStr,'?')), ERCgenerated = true; end
+                if ~isempty(strfind(funRepStr,'#')), PRCgenerated = true; end
             end
-            funRepStr = [funRepStr ')'];
-        else % for single argument functions
-            funRepStr = [funName '($)'];
+            
+        end
+        
+        % Else just create a pattern from the $ terminals
+        if isempty(funRepStr)
+            %create appropriate replacement string e.g. a($,$) for 2 argument
+            %function
+            funRepStr = [funName '($'];
+            if numFunArgs > 1
+                for j=2:numFunArgs
+                    funRepStr = [funRepStr ',$'];
+                end
+                funRepStr = [funRepStr ')'];
+            else % for single argument functions
+                funRepStr = [funName '($)'];
+            end
         end
         
         %replace active node token @ with replacement string

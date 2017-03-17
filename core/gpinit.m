@@ -306,10 +306,13 @@ if gp.nodes.adf.use
     the_seeds = cell(gp.nodes.adf.num_active,1);
     [the_seeds{:}] = deal(gp.nodes.adf.seed{logical(gp.nodes.adf.active)});
     seedind = gp.nodes.functions.num_active - gp.nodes.adf.num_active;
+    seedstr = '';
     for k=1:length(the_seeds)
         use_seeds{k} = [gp.nodes.functions.afid(seedind+k) the_seeds{k}];
+        seedstr = [seedstr gp.nodes.functions.afid(seedind+k)];
     end
     gp.nodes.adf.use_seeds = use_seeds;
+    gp.nodes.adf.seed_str = seedstr;
 end
 
 temp = cell(gp.nodes.functions.num_active,1);

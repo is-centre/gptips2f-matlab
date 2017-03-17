@@ -80,6 +80,7 @@ gp.nodes.functions = orderfields(gp.nodes.functions);
 % AT: Automatically Defined Functions (ADFs)
 gp.nodes.adf.about = 'Automatically defined functions';
 gp.nodes.adf.use = false; % Disabled by default
+gp.nodes.adf.force = false; % Setting to true will force the predefined structure for the arguments, e.g., adf1($1,#1,?1) when the adf is selected
 gp.nodes.adf.name = []; % The names as in {'adf1', 'adf2', ...}
 gp.nodes.adf.expr = []; % User configurable: the expressions for ADFs as strings in a cell array
 gp.nodes.adf.seed = []; % Gene seeds (automatically populated)
