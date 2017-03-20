@@ -135,7 +135,7 @@ while true
         funRepStr = '';
         
         % For ADFs, check if argument enforcing is turned on
-        if gp.nodes.adf.use && gp.nodes.adf.force
+        if gp.nodes.adf.use && gp.nodes.adf.arg_force
             
             % Check whether this function is an ADF
             adfind = strfind(gp.nodes.adf.seed_str, funName);
