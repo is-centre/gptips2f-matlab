@@ -11,6 +11,7 @@ function varargout = gpresids(gp, ID, opts)
 %                     .Mean -- mean value of residuals,
 %                     .ResidNorm -- residual norm: sum(err^2)
 %                     .MSE -- mean squared error: 1/N sum(err^2)
+%                     .ConfBnd -- boundary value of the confidence interval
 %                     .RErr -- vector with autocorrelation values of
 %                              residuals for lags tau up until tau_max
 %
@@ -247,7 +248,8 @@ if nargout > 1
     stats.Mean = errmean;
     stats.ResidNorm = resnorm;
     stats.MSE = mse;
-    stats.RErr = rerr;
+    stats.RErr = rerr(2:end); % Don't save the first one, it's value is 1.0
+    stats.ConfBnd = intc;
     varargout{2} = stats;
 end
 
