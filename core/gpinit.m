@@ -196,14 +196,21 @@ if isempty(exprs)
 end
 gp.nodes.adf.use = true;
 
+% Unless names are specified, generate the names automatically
 adfname = 'adf';
+use_auto_adf_names = false;
+ 
+if ~isfield(gp.nodes.adf, 'name') || isempty(gp.nodes.adf.name)
+    gp.nodes.adf.name = cell(1,numExprs);
+    use_auto_adf_names = true;
+end  
+
 % Process the expressions
-gp.nodes.adf.name = cell(1,numExprs);
 gp.nodes.adf.eval = cell(1,numExprs);
 gp.nodes.adf.seed = cell(1,numExprs);
 for k=1:numExprs
     [fcn, ~, ~, seed] = parseadf(exprs{k});
-    gp.nodes.adf.name{k} = [adfname num2str(k)];
+    if use_auto_adf_names, gp.nodes.adf.name{k} = [adfname num2str(k)]; end
     gp.nodes.adf.eval{k} = fcn;
     gp.nodes.adf.seed{k} = seed;
 end

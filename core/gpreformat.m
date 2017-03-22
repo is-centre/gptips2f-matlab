@@ -134,8 +134,8 @@ for j=1:len
             tempstr = strrep(tempstr,[',x' int2str(varInds(i)) ')'],...
                 [',' strtrim(gp.nodes.inputs.namesPlain{varInds(i)}) ')']);
             
-            tempstr = strrep(tempstr,[',x' int2str(varInds(i)) ','],...
-                [',' strtrim(gp.nodes.inputs.namesPlain{varInds(i)}) ',']);
+            tempstr = strrep(tempstr,[',x' int2str(varInds(i))],...
+                [',' strtrim(gp.nodes.inputs.namesPlain{varInds(i)})]);
             
         end
     end
