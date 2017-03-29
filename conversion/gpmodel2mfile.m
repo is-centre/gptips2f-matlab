@@ -66,7 +66,7 @@ if ~ischar(filename)
     error('The filename parameter must be a string.');
 end
 
-if gp.info.toolbox.symbolic
+if gp.info.toolbox.symbolic()
 
     %simplify and get sym object for overall model
     exprSym = gpmodel2sym(gp,ID,false,useAlias);

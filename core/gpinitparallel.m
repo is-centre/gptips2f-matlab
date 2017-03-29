@@ -24,7 +24,7 @@ function gp = gpinitparallel(gp)
 %   See also GPINIT, GPTOOLBOXCHECK
 
 gp.runcontrol.parallel.ok = false;
-parToolbox = gp.info.toolbox.parallel;
+parToolbox = gp.info.toolbox.parallel();
 
 if parToolbox && (gp.runcontrol.parallel.auto || gp.runcontrol.parallel.enable)
     mps = getMaxPoolSize;

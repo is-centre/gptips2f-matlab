@@ -54,7 +54,7 @@ disp('Press a key to continue');
 disp(' ');pause;runtree(gp,'best');
 
 %If Symbolic Math toolbox is present
-if gp.info.toolbox.symbolic
+if gp.info.toolbox.symbolic()
     disp('Using the symbolic math toolbox it is possible to combine the gene');
     disp('expressions with the gene weights (regression coefficients) to display');
     disp('a single overall model that predicts the output using the inputs x1,');

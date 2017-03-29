@@ -129,7 +129,7 @@ runVarsTableJS(fid,gp);
 trainPredictionsChartJS(fid,gp,gpmodel);
 trainScatterChartJS(fid,gp,gpmodel);
 
-if gp.info.toolbox.symbolic
+if gp.info.toolbox.symbolic()
 fullModelSymTableJS(fid,gpmodel,gp);
 geneSymTableJS(fid,gpmodel,gp);
 end
@@ -188,7 +188,7 @@ fprintf(fid,'<div id="runtable"></div>\n');
 
 %table to hold overall simplified model (reqs symbolic math toolbox)
 fprintf(fid,'<h3>Overall model</h3>\n');
-if gp.info.toolbox.symbolic
+if gp.info.toolbox.symbolic()
     
     fprintf(fid,'<p class="text">Overall model after simplification. Numerical precision reduced for display purposes.</p>\n');
     fprintf(fid,'<div id="fullmodel_table"></div>\n');
@@ -384,7 +384,7 @@ fprintf(fid,['structdata.setCell(4, 1, ''<p class="table">' int2str(gpmodel.numI
 
 usedInputs = '';
 for i=1:gpmodel.numInputs
-    if gp.info.toolbox.symbolic
+    if gp.info.toolbox.symbolic()
         usedInputs = [usedInputs ' '  googfix(HTMLequation(gp,gpmodel.inputs{i})) ];
     else
         usedInputs = [usedInputs ' '  gpmodel.inputs{i} ];

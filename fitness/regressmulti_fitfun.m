@@ -233,7 +233,7 @@ if gp.state.run_completed
     
     %calc statistical analysis of gene significance on training data
     %(if stats toolbox is present)
-    if gp.userdata.stats && gp.info.toolbox.stats
+    if gp.userdata.stats && gp.info.toolbox.stats()
         % Regress tree outputs (and bias) against y train data and get stats
         wstate = warning;warning off;
         stats = regstats(y,geneOutputs(:,2:end));
@@ -336,7 +336,7 @@ if gp.state.run_completed && gp.userdata.showgraphs
     end
     
     %gene weights & significance
-    if  gp.info.toolbox.stats && gp.userdata.stats
+    if  gp.info.toolbox.stats() && gp.userdata.stats
         
         %generate x labels for bar graphs
         geneLabels = {'Bias'};

@@ -48,7 +48,7 @@ for i=1:numnodes
                 node.name = gp.nodes.inputs.names{newnameInd};
             end
             
-            if gp.info.toolbox.symbolic
+            if gp.info.toolbox.symbolic()
                 node.name = HTMLequation(gp,node.name);
             end
             

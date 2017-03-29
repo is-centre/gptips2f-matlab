@@ -87,7 +87,7 @@ pause;
 runtree(gp,'valbest');
 
 %If Symbolic Math toolbox is present
-if gp.info.toolbox.symbolic
+if gp.info.toolbox.symbolic()
     
     disp(' ');
     disp('Next, use the the GPPRETTY command on the best validation individual: ');
@@ -124,7 +124,7 @@ pause
 gppopvars(gp,0.75);
 disp(' ');
 
-if gp.info.toolbox.symbolic
+if gp.info.toolbox.symbolic()
     disp('Finally, an HTML report listing the models on the Pareto optimal front');
     disp('of model expressional complexity and performance can be generated using');
     disp('the PARETOREPORT function.');

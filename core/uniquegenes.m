@@ -28,7 +28,7 @@ if nargin < 1
     return
 end
 
-if ~gp.info.toolbox.symbolic
+if ~gp.info.toolbox.symbolic()
     error('The Symbolic Math Toolbox is required to use this function.');
 end
 

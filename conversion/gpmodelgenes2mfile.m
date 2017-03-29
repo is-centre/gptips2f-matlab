@@ -62,7 +62,7 @@ if ~ischar(filename)
     error('The filename parameter must be a string.');
 end
 
-if gp.info.toolbox.symbolic
+if gp.info.toolbox.symbolic()
     
     %get model data
     disp('Simplifying model...');

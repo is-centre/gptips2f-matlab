@@ -72,7 +72,7 @@ disp('Press a key to continue');disp(' ');pause;
 popbrowser(gp);
 
 %If Symbolic Math toolbox is present
-if gp.info.toolbox.symbolic
+if gp.info.toolbox.symbolic()
    
     %pareto report
     disp(' ');
@@ -106,7 +106,7 @@ disp('Press a key to continue');disp(' ');pause;
 drawtrees(gp,'best');
 
 %reports
-if gp.info.toolbox.symbolic
+if gp.info.toolbox.symbolic()
    
     disp(' ');
     disp('Finally, for multigene models the GPMODELREPORT function can be ');

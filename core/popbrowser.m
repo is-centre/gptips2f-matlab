@@ -317,7 +317,7 @@ grid on; set(browserFig,'userdata',gp); set(browserFig,'numbertitle','off'); set
 
 %enable datacursor mode
 dcManager = datacursormode(gcf);
-if mgmodel && gp.info.toolbox.symbolic
+if mgmodel && gp.info.toolbox.symbolic()
     set(dcManager,'UpdateFcn',@disp_mgmodel);
 else
     set(dcManager,'UpdateFcn',@disp_indiv);

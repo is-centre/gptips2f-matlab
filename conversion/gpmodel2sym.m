@@ -70,7 +70,7 @@ function [symObj,cellsymObj] = gpmodel2sym(gp,ID,fastMode,useAlias)
 
 symObj = [];cellsymObj = [];
 
-if ~gp.info.toolbox.symbolic
+if ~gp.info.toolbox.symbolic()
     error('The Symbolic Math Toolbox is required to use this function.');
 end
 

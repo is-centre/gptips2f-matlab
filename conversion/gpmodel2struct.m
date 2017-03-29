@@ -285,7 +285,7 @@ if modelStruc
 end
 
 %create sym objects
-if createSyms && gp.info.toolbox.symbolic
+if createSyms && gp.info.toolbox.symbolic()
     
     if cellgenes
         ID = horzcat(ID,rtnVals);
@@ -524,7 +524,7 @@ end
 
 %calc statistical analysis of gene significance & other stats on training data
 %(if stats toolbox is present)
-if tbxStats && gp.info.toolbox.stats
+if tbxStats && gp.info.toolbox.stats()
     stats = regstats(gp.userdata.ytrain,geneOutputsTrain(:,2:end));
     gpmodel.train.pvals = stats.tstat.pval;
     gpmodel.train.tbxStats = stats;

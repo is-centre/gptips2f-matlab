@@ -9,10 +9,8 @@ function [symbolicResult, parallelResult, statsResult] = gptoolboxcheck
 %
 %   See also GPINIT
 
-v = ver;
-[toolboxes{1:length(v)}] = deal(v.Name);
-symbolicResult = ismember('Symbolic Math Toolbox',toolboxes) && license('test','symbolic_toolbox');
-parallelResult = ismember('Parallel Computing Toolbox',toolboxes) && license('test','distrib_computing_toolbox');
-statsResult = ( ismember('Statistics Toolbox',toolboxes) || ismember('Statistics and Machine Learning Toolbox',toolboxes) ) ...
-    && license('test','statistics_toolbox'); 
+symbolicResult = @() (ismember('Symbolic Math Toolbox',gp_toolboxlist()) && license('test','symbolic_toolbox'));
+parallelResult = @() (ismember('Parallel Computing Toolbox',gp_toolboxlist()) && license('test','distrib_computing_toolbox'));
+statsResult = @() (( ismember('Statistics Toolbox',gp_toolboxlist()) || ismember('Statistics and Machine Learning Toolbox',gp_toolboxlist()) ) ...
+    && license('test','statistics_toolbox')); 
 

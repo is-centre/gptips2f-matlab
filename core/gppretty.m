@@ -154,7 +154,7 @@ else
     doknockout = true;
 end
 
-if gp.info.toolbox.symbolic
+if gp.info.toolbox.symbolic()
     
     if isnumeric(ID)
         

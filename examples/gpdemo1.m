@@ -64,7 +64,7 @@ disp(['It was found at generation ' int2str(gp.results.best.foundatgen)]);
 disp(['and has fitness ' num2str(gp.results.best.fitness)]);
 
 %If Symbolic Math toolbox is present
-if gp.info.toolbox.symbolic
+if gp.info.toolbox.symbolic()
     
     disp(' ');
     disp('Using the symbolic math toolbox simplified versions of this');

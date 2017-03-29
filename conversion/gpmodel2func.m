@@ -31,7 +31,7 @@ function f = gpmodel2func(gp,ID)
 %   See also GPMODEL2SYM, GPMODEL2MFILE, FUNCTION_HANDLE, MATLABFUNCTION,
 %            EZPLOT, EZCONTOUR, EZSURF
 
-if ~gp.info.toolbox.symbolic
+if ~gp.info.toolbox.symbolic()
     error('The Symbolic Math Toolbox is required to use this function.');
 end
 
