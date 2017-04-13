@@ -201,7 +201,7 @@ if numel(gp.nodes.inputs.names) > gp.nodes.inputs.num_inp
 end
 
 % Check ADF settings
-if (~isempty(gp.nodes.adf.name) && ~isa(gp.nodes.adf.name, 'cell')) || length(gp.nodes.adf.name) ~= length(gp.nodes.adf.expr)
+if (~isempty(gp.nodes.adf.name) && ~isa(gp.nodes.adf.name, 'cell')) || (~isempty(gp.nodes.adf.name) && (length(gp.nodes.adf.name) ~= length(gp.nodes.adf.expr)))
     error('The parameter gp.nodes.adf.name must be a cell array of strings with as many as entries as ADF expressions.');
 end
 
