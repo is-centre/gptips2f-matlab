@@ -29,6 +29,11 @@ gp.runcontrol.suppressConfig = true;    %true to only evaluate the config file f
 gp.runcontrol.usecache = true;         %fitness caching: used when copying individuals in a gen
 gp.runcontrol = orderfields(gp.runcontrol);
 
+% AT: Additional run control features
+gp.runcontrol.evol.adf.rules = {};      % Rules for ADF evolution
+% TODO: To be implemented
+% TODO: Add more rules? Perhaps applied in global scope?
+
 gp.selection.about = 'Selection';            
 gp.selection.tournament.size = 10;         
 gp.selection.tournament.lex_pressure = true; %set to true to use Sean Luke's et al.'s lexographic selection pressure during regular tournament selection

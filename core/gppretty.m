@@ -235,8 +235,8 @@ if gp.info.toolbox.symbolic()
             fullExpr = sym(gp.results.best.returnvalues(1));
             exprArray{1} = gpsimplify(fullExpr,simplifySteps,verReallyOld,fastMode);
             
-            for i=1:length(evalTree);
-                geneExpr = gp.results.best.returnvalues(i+1) * sym(evalTree{i});
+            for i=1:length(evalTree)
+                geneExpr = gp.results.best.returnvalues(i+1) * gpsym(gp, evalTree{i});
                 fullExpr = fullExpr + geneExpr;
                 exprArray{i+1} = gpsimplify(geneExpr,simplifySteps,verReallyOld,fastMode);
             end
@@ -246,7 +246,7 @@ if gp.info.toolbox.symbolic()
             fullExpr = gp.results.best.returnvalues(1) + gp.results.best.returnvalues(2)*gpsym(gp, evalTree{1});
             exprArray{1} = gpsimplify(fullExpr,simplifySteps,verReallyOld,fastMode);
             
-            for i=2:length(evalTree);
+            for i=2:length(evalTree)
                 geneExpr = gp.results.best.returnvalues(i+1) * gpsym(gp, evalTree{i});
                 fullExpr = fullExpr+geneExpr;
                 exprArray{i} = gpsimplify(geneExpr,simplifySteps,verReallyOld,fastMode);

@@ -41,7 +41,7 @@ gp.state.count = gp.state.count + 1;
 buildCount = 0;
 
 %loop until the required number of new individuals has been built.
-while buildCount < num2build;
+while buildCount < num2build
     
     buildCount = buildCount + 1;
     
@@ -232,7 +232,7 @@ while buildCount < num2build;
                             if  daughter_nodes <= max_nodes
                                 crossOverSuccess = true;
                                 break;
-                            end;
+                            end
                         end
                     end
                 end

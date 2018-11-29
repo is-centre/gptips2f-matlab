@@ -72,7 +72,7 @@ for i=1:popSize %loop through population
                 
                 if z > 1 %check previous genes for copies
                     
-                    for j = 1:z-1;
+                    for j = 1:z-1
                         if strcmp(temp,individ{1,j})
                             copyDetected = true;
                             break

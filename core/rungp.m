@@ -97,7 +97,7 @@ for run=1:gp.runcontrol.runs;
         %start gen timer
         gp = gptic(gp);
         
-        if count == 1;
+        if count == 1
             
             %generate the initial population
             gp = initbuild(gp);
