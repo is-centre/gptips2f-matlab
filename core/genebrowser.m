@@ -109,7 +109,7 @@ symGenesChar = cell(numModelGenes,1);
 verOld = verLessThan('matlab', '7.7.0');
 
 for i=1:length(symGenes);
-    symGenes{i} = gpsimplify(sym(exprs{i}),10,verOld,true);
+    symGenes{i} = gpsimplify(gpsym(gp, exprs{i}),10,verOld,true);
     symGenesChar{i} = char(symGenes{i});
 end
 

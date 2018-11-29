@@ -83,6 +83,7 @@ gp.nodes.adf.use = false; % Disabled by default
 gp.nodes.adf.arg_force = true; % Setting to true will force the predefined structure for the arguments, e.g., adf1($1,#1,?1) when the adf is selected
 gp.nodes.adf.name = []; % The names as in {'adf1', 'adf2', ...}
 gp.nodes.adf.expr = []; % User configurable: the expressions for ADFs as strings in a cell array
+gp.nodes.adf.syms = []; % Internal: symbols appearing inside ADFs (needed for sym/str2sym compatibility)
 gp.nodes.adf.seed = []; % Gene seeds (automatically populated)
 gp.nodes.adf.eval = []; % Anonymous functions implementing the expressions as strings
 gp.nodes.adf.active = []; % User configurable: currently active ADFs

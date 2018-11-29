@@ -222,8 +222,23 @@ if ~isfield(gp.nodes.adf,'active') || isempty(gp.nodes.adf.active)
     gp.nodes.adf.active = ones(1,length(gp.nodes.adf.name));
 end
 
-% Finally, add ADFs to the current function list
-gp.nodes.functions.name = {gp.nodes.functions.name{:} gp.nodes.adf.name{:}};
+% Add ADFs to the current function list
+gp.nodes.functions.name = ...
+    [gp.nodes.functions.name(:)' gp.nodes.adf.name(:)'];
+
+% Enumerate all expressions found in ADFs, because their symbolic names
+% must be known to MATLAB when converting to symbolic expressions
+funcs = {};
+for k=1:numExprs
+    out = regexp(exprs{k}, '([A-Za-z0-9\_]+)( *)?\(', 'tokens');
+    for l=1:numel(out)
+        part = out{l};
+        funcs{end+1} = part{1}; %#ok - no need to parse twice
+    end     
+end
+
+% Finally, store this data for later use in gpsym
+gp.nodes.adf.syms = unique(funcs);
 
 
 function gp=procfuncnodes(gp)
