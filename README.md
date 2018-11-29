@@ -1,6 +1,8 @@
 # GPTIPS2F Toolbox for MATLAB #
 
-GPTIPS2F is the evolution of the second version of the MATLAB toolbox developed by Dr. Dominic Searson. It is maintained by Dr. Aleksei Tepljakov, TalTech University, https://atdesign.ee/.
+GPTIPS2F is the evolution of the second version of the MATLAB toolbox developed by Dr. Dominic Searson.
+
+Since 2017, the toolbox is maintained by Dr. Aleksei Tepljakov, TalTech University, https://taltech.ee/
 
 ### New features ###
 
@@ -10,6 +12,9 @@ GPTIPS2F is the evolution of the second version of the MATLAB toolbox developed 
 ### Installation ###
 
 Run the code `addpath(genpath(gptips2f))` and save the resulting path afterwards.
+
+### Documentation ###
+Please consider [the original docs](https://sites.google.com/site/gptips4matlab/). Updated docs will be published in due time. Meanwhile, read on to learn how to use the ADF feature.
 
 ### A brief on how to use ADFs ###
 
