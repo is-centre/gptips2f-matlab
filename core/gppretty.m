@@ -188,23 +188,23 @@ if gp.info.toolbox.symbolic()
         
         if separateBias %bias is kept as a separate "gene"
             
-            fullExpr = sym(gp.fitness.returnvalues{ID}(1));
+            fullExpr = gpsym(gp, gp.fitness.returnvalues{ID}(1));
             exprArray = cell(1, numel(evalTree)+1);
             exprArray{1} = gpsimplify(fullExpr,simplifySteps,verReallyOld,fastMode);
             
             for i=1:length(evalTree);
-                geneExpr = gp.fitness.returnvalues{ID}(i+1)*sym(evalTree{i});
+                geneExpr = gp.fitness.returnvalues{ID}(i+1)*gpsym(gp, evalTree{i});
                 fullExpr = fullExpr + geneExpr;
                 exprArray{i+1} = gpsimplify(geneExpr,simplifySteps,verReallyOld,fastMode);
             end
             
         else %normal processing where bias is folded into first gene
-            fullExpr = gp.fitness.returnvalues{ID}(1) + gp.fitness.returnvalues{ID}(2)*sym(evalTree{1});
+            fullExpr = gp.fitness.returnvalues{ID}(1) + gp.fitness.returnvalues{ID}(2)*gpsym(gp, evalTree{1});
             exprArray = cell(1, numel(evalTree));
             exprArray{1} = gpsimplify(fullExpr,simplifySteps,verReallyOld,fastMode);
             
             for i=2:length(evalTree);
-                geneExpr = gp.fitness.returnvalues{ID}(i+1) * sym(evalTree{i});
+                geneExpr = gp.fitness.returnvalues{ID}(i+1) * gpsym(gp, evalTree{i});
                 fullExpr = fullExpr + geneExpr;
                 exprArray{i} = gpsimplify(geneExpr,simplifySteps,verReallyOld,fastMode);
             end
@@ -232,7 +232,7 @@ if gp.info.toolbox.symbolic()
         
         if separateBias %bias is kept as a separate "gene"
             
-            fullExpr = sym(gp.results.best.returnvalues(1));
+            fullExpr = gpsym(gp, gp.results.best.returnvalues(1));
             exprArray{1} = gpsimplify(fullExpr,simplifySteps,verReallyOld,fastMode);
             
             for i=1:length(evalTree)

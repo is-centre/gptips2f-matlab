@@ -52,9 +52,15 @@ known_fun = {'abs' 'acos' 'acosd' 'acosh' 'acot' 'acotd' 'acoth' 'acsc' ...
     'vpaintegral' 'vpasolve' 'whittakerM' 'whittakerW' 'wrightOmega' ...
     'xor' 'zeta' 'ztrans'};
 
-if ~exist('str2sym', 'file')
+% Here we need to take into account that expr may be numeric in which
+% case the str2sym function will fail. sym(), on the other hand, will
+% return a symbolic object while converting a double prec. number to a
+% fraction, if possible.
+% TODO: Possible bug hidden in here? Must test.
+if ~exist('str2sym', 'file') || isnumeric(expr)
     s = sym(expr);
 else
+    
     funcs = [gp.nodes.functions.name gp.nodes.adf.syms]; % Combine all
     funcs = unique(funcs); % Remove repeating entries
     funcs = setdiff(funcs, known_fun); % Remove fundamental functions
