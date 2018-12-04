@@ -5,6 +5,7 @@ function gp = gpdefaults()
 %   be overidden in the user's config file.
 %
 %   Copyright (c) 2009-2015 Dominic Searson 
+%                 2017-...  Aleksei Tepljakov
 %
 %   GPTIPS 2
 %
@@ -28,11 +29,6 @@ gp.runcontrol.runs = 1;                 %number of independent runs to perform a
 gp.runcontrol.suppressConfig = true;    %true to only evaluate the config file for the first run in a merged multirun
 gp.runcontrol.usecache = true;         %fitness caching: used when copying individuals in a gen
 gp.runcontrol = orderfields(gp.runcontrol);
-
-% AT: Additional run control features
-gp.runcontrol.evol.adf.rules = {};      % Rules for ADF evolution
-% TODO: To be implemented
-% TODO: Add more rules? Perhaps applied in global scope?
 
 gp.selection.about = 'Selection';            
 gp.selection.tournament.size = 10;         
@@ -130,5 +126,22 @@ gp.genes.max_genes = 4;
 gp.genes.operators.p_cross_hi = 0.2;    %probability of high level crossover
 gp.genes.operators.hi_cross_rate = 0.5; %probability of any given gene being selected during high level crossover
 gp.genes = orderfields(gp.genes);
+
+% Evolution
+
+% Entries in this cell array should be of form {@fun, params}
+% where @fun is a function handle, and params are parameters passed to that
+% function in addition to gp structure (useful for passing config
+% parameters to rules that can change over time)
+%
+% One can think about these rules as constraints so as to keep the models
+% obtained through applying symbolic regression feasible
+gp.evolution.about = 'High level evolution control';
+gp.evolution.rules.use = false;    % Do not use rules by default
+gp.evolution.rules.sets = {};      % Rules for evolution
+gp.evolution.rules.strict = true;  % If true, accept only two distinct values for fitness, 0 and 1. TODO: Implementation
+gp.evolution.rules.attempts = 100; % Number of attempts to recreate an individual if the rules are killing off the other one
+gp.evolution.rules.kills = 0;      % Number of individuals that were killed off due to not being fit
+gp.evolution = orderfields(gp.evolution);
 
 gp = orderfields(gp);

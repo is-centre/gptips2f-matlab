@@ -40,10 +40,15 @@ gp.state.count = gp.state.count + 1;
 
 buildCount = 0;
 
+% Used in killing individuals with traits that we do not want them to have
+% Obviously, it is reset once per generating a new population
+killed_off_count = 0;
+
 %loop until the required number of new individuals has been built.
 while buildCount < num2build
     
     buildCount = buildCount + 1;
+    thisBuildCount = buildCount; % Used to assess how many individuals were created that need to be checked against the rules
     
     %probabilistically select a genetic operator
     p_gen = rand;
@@ -259,6 +264,61 @@ while buildCount < num2build
         end %end of if ~use_high
         
     end % end of op_type if
+    
+    % AT: We now check the evolution rules. If an individual has genes that
+    % are not acceptable from the point of view of "survival", then the
+    % complete individual is killed off and new ones are generated to take
+    % its place. In order to keep the algorithm deterministic, this is only
+    % done in a limited amount of attempts. This means that defective genes
+    % can still enter the population. TODO: Can we play nature in this
+    % respect also and just kill those off without generating new ones?
+    
+    % But in order to discard individuals we just reset the counter.
+    if gp.evolution.rules.use && killed_off_count < gp.evolution.rules.attempts
+        kill_off = false;
+        n = thisBuildCount;
+        while (n <= buildCount && ~kill_off)
+            % Check every individual's genes against every rule
+            % NB! Potential bug... multigene vs. single gene regression?
+            for m=1:length(gp.evolution.rules.sets)
+                
+               % Get the rule and associated parameters
+               rule = gp.evolution.rules.sets{m};
+               rule_fun = rule{1};
+               rule_par = rule{2};
+               
+               thisGene = newPop{n};
+               for k=1:length(thisGene)
+                  expr = thisGene{k};
+                  
+                  % Evaluate the expression via the rule
+                  [gp, fit] = rule_fun(gp, expr, rule_par);
+                  if gp.evolution.rules.strict
+                      if fit < 1.0
+                          kill_off = true;
+                      end
+                  else
+                      % TODO
+                      % Here we may establish some adaptive threshold...
+                      % But this is still to be decided
+                  end
+                  
+               end
+            end
+            
+            n = n + 1;
+        end
+        
+        if kill_off
+            % Unfortunately, we have to discard this individual. So we
+            % rewind the population counter by the necessary number of
+            % positions...
+            buildCount = thisBuildCount - 1; % to take into account the +1 in the beginning of the loop
+            gp.evolution.rules.kills = gp.evolution.rules.kills + 1;
+        end
+        
+    end
+    
     
 end %end of ii-->num2build  for
 
