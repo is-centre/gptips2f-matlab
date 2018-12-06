@@ -40,10 +40,15 @@ gp.state.count = gp.state.count + 1;
 
 buildCount = 0;
 
+% Used in killing individuals with traits that we do not want them to have
+% Obviously, it is reset once per generating a new population
+killed_off_count = 0;
+
 %loop until the required number of new individuals has been built.
 while buildCount < num2build
     
     buildCount = buildCount + 1;
+    thisBuildCount = buildCount; % Used to assess how many individuals were created that need to be checked against the rules
     
     %probabilistically select a genetic operator
     p_gen = rand;
@@ -112,14 +117,13 @@ while buildCount < num2build
         %copy to new population
         newPop{buildCount} = parent;
         
-        %store fitness etc of copied individual if cache enabled
-        if gp.runcontrol.usecache
-            cachedData.complexity = gp.fitness.complexity(parentIndex,1);
-            cachedData.returnvalues = gp.fitness.returnvalues{parentIndex,1};
-            cachedData.value = gp.fitness.values(parentIndex,1);
-            gp.fitness.cache(buildCount) = cachedData;
-        end
-        
+        % Store fitness etc of copied individual if cache enabled
+        % AT: However, only assign it at the end (after rules check)
+        % to avoid bugs
+        cachedData.complexity = gp.fitness.complexity(parentIndex,1);
+        cachedData.returnvalues = gp.fitness.returnvalues{parentIndex,1};
+        cachedData.value = gp.fitness.values(parentIndex,1);
+
         %crossover operator - can either pick 'high level' crossover
         %(crosses over entire genes with no tree alteration) or 'low level'
         % which crosses over individual genes at the tree level.
@@ -259,6 +263,76 @@ while buildCount < num2build
         end %end of if ~use_high
         
     end % end of op_type if
+    
+    % AT: We now check the evolution rules. If an individual has genes that
+    % are not acceptable from the point of view of "survival", then the
+    % complete individual is killed off and new ones are generated to take
+    % its place. In order to keep the algorithm deterministic, this is only
+    % done in a limited amount of attempts. This means that defective genes
+    % can still enter the population. TODO: Can we play nature in this
+    % respect also and just kill those off without generating new ones?
+    
+    % But in order to discard individuals we just reset the counter.
+    
+    % kill_off variable is defined outside the if statement since
+    % it is necessary for the caching mechanism to be able to store the
+    % cached value later for the direct copy method even if rules are
+    % disabled in the config
+    kill_off = false;
+    
+    if gp.evolution.rules.use && killed_off_count < gp.evolution.rules.attempts
+        
+        n = thisBuildCount;
+        while (n <= buildCount && ~kill_off)
+            % Check every individual's genes against every rule
+            % NB! Potential bug... multigene vs. single gene regression?
+            for m=1:length(gp.evolution.rules.sets)
+                
+               % Get the rule and associated parameters
+               rule = gp.evolution.rules.sets{m};
+               rule_fun = rule{1};
+               rule_par = rule{2};
+               
+               thisGene = newPop{n};
+               for k=1:length(thisGene)
+                  expr = thisGene{k};
+                  
+                  % Evaluate the expression via the rule
+                  [gp, fit] = rule_fun(gp, expr, rule_par);
+                  if gp.evolution.rules.strict
+                      if fit < 1.0
+                          kill_off = true;
+                          killed_off_count = killed_off_count + 1;
+                      end
+                  else
+                      % TODO
+                      % Here we may establish some adaptive threshold...
+                      % But this is still to be decided
+                      % Maybe have an (exponential) penalty for the
+                      % fitness?
+                  end
+                  
+               end
+            end
+            
+            n = n + 1;
+        end
+        
+        if kill_off
+            % The individual did not pass evolutionary rules and is discarded.
+            % The population counter is rewound by the necessary number of
+            % positions
+            buildCount = thisBuildCount - 1; % to take into account the +1 in the beginning of the loop
+            gp.evolution.rules.kills = gp.evolution.rules.kills + 1;
+        end
+        
+    end
+    
+    % After checking the rules, store the cache for direct copy event
+    if eventType == 2 && gp.runcontrol.usecache && ~kill_off
+       gp.fitness.cache(buildCount) = cachedData;
+    end
+    
     
 end %end of ii-->num2build  for
 

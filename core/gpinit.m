@@ -296,9 +296,6 @@ end
 %Exclusions are because 'x' is reserved for input nodes, 'e' is used for
 %expressing numbers in standard form by Matlab and, by default, 'i' and 'j'
 %represent sqrt(-1).
-
-% In this version of the toolbox we also skip 'a' because it is used to
-% denote automatically defined functions (ADFs).
 charnum = 96; skip = 0;
 for i=1:gp.nodes.functions.num_active
     while true      %e                          %i                    %j                         %x

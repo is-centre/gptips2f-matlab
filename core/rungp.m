@@ -72,13 +72,13 @@ gp = gprandom(gp);
 gp = feval(configFile,gp);
 
 %multiple runs (are merged after each run)
-for run=1:gp.runcontrol.runs;
+for run=1:gp.runcontrol.runs
     
     gp.state.run = run;
     
     %run user configuration file each time for subsequent runs, unless
     %suppressed (default)
-    if run > 1 && ~gp.runcontrol.suppressConfig;
+    if run > 1 && ~gp.runcontrol.suppressConfig
         gp = feval(configFile,gp);
     end
     
