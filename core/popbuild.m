@@ -117,14 +117,13 @@ while buildCount < num2build
         %copy to new population
         newPop{buildCount} = parent;
         
-        %store fitness etc of copied individual if cache enabled
-        if gp.runcontrol.usecache
-            cachedData.complexity = gp.fitness.complexity(parentIndex,1);
-            cachedData.returnvalues = gp.fitness.returnvalues{parentIndex,1};
-            cachedData.value = gp.fitness.values(parentIndex,1);
-            gp.fitness.cache(buildCount) = cachedData;
-        end
-        
+        % Store fitness etc of copied individual if cache enabled
+        % AT: However, only assign it at the end (after rules check)
+        % to avoid bugs
+        cachedData.complexity = gp.fitness.complexity(parentIndex,1);
+        cachedData.returnvalues = gp.fitness.returnvalues{parentIndex,1};
+        cachedData.value = gp.fitness.values(parentIndex,1);
+
         %crossover operator - can either pick 'high level' crossover
         %(crosses over entire genes with no tree alteration) or 'low level'
         % which crosses over individual genes at the tree level.
@@ -274,8 +273,15 @@ while buildCount < num2build
     % respect also and just kill those off without generating new ones?
     
     % But in order to discard individuals we just reset the counter.
+    
+    % kill_off variable is defined outside the if statement since
+    % it is necessary for the caching mechanism to be able to store the
+    % cached value later for the direct copy method even if rules are
+    % disabled in the config
+    kill_off = false;
+    
     if gp.evolution.rules.use && killed_off_count < gp.evolution.rules.attempts
-        kill_off = false;
+        
         n = thisBuildCount;
         while (n <= buildCount && ~kill_off)
             % Check every individual's genes against every rule
@@ -296,11 +302,14 @@ while buildCount < num2build
                   if gp.evolution.rules.strict
                       if fit < 1.0
                           kill_off = true;
+                          killed_off_count = killed_off_count + 1;
                       end
                   else
                       % TODO
                       % Here we may establish some adaptive threshold...
                       % But this is still to be decided
+                      % Maybe have an (exponential) penalty for the
+                      % fitness?
                   end
                   
                end
@@ -310,13 +319,18 @@ while buildCount < num2build
         end
         
         if kill_off
-            % Unfortunately, we have to discard this individual. So we
-            % rewind the population counter by the necessary number of
-            % positions...
+            % The individual did not pass evolutionary rules and is discarded.
+            % The population counter is rewound by the necessary number of
+            % positions
             buildCount = thisBuildCount - 1; % to take into account the +1 in the beginning of the loop
             gp.evolution.rules.kills = gp.evolution.rules.kills + 1;
         end
         
+    end
+    
+    % After checking the rules, store the cache for direct copy event
+    if eventType == 2 && gp.runcontrol.usecache && ~kill_off
+       gp.fitness.cache(buildCount) = cachedData;
     end
     
     
