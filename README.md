@@ -2,7 +2,7 @@
 
 GPTIPS2F is the evolution of the second version of the MATLAB toolbox developed by Dr. Dominic Searson.
 
-Since 2017, the toolbox is maintained by Dr. Aleksei Tepljakov, TalTech University, https://taltech.ee/
+Since 2017, the a fork of the toolbox (‘2F’) is maintained by Dr. Aleksei Tepljakov, TalTech University, https://taltech.ee/
 
 **Note that the version number of GPTIPS2F has been reset to 1.0 since Dec 6, 2018.**
 
