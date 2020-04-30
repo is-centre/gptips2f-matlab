@@ -189,7 +189,7 @@ end
 err = y - ypred;
 
 % Confidence interval
-intc = quantile(c_p(conf))/sqrt(length(err));
+intc = gp_quantile(c_p(conf))/sqrt(length(err));
 
 % Compute necessary parameters
 resnorm = sum(err.^2);              % Residual norm
@@ -267,6 +267,12 @@ end
 function cp = c_p(p)
 cp = 1-0.5*(1-p);
 end
+
+function y = gp_quantile(x)
+%QUANTILE Compute quantile function Phi^-1(x)
+    y = sqrt(2)*erfinv(2*x-1);
+end
+
 
 function [fexist, f] = gp_cfieldexists(structure, structure_fields)
 %CFIELDEXISTS Check if a field (given by a string) in a structure exists
