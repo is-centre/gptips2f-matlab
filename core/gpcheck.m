@@ -175,6 +175,17 @@ for i = 1:length(gp.nodes.functions.name)
     
 end
 
+% Loop through evolutionary rules
+for i = 1:length(gp.evolution.rules.sets)
+    the_rule = gp.evolution.rules.sets{i};
+    status = exist(func2str(the_rule{1}));
+    if (status ~= 2) && (status ~=3 ) && (status ~=5) && (status ~=6)
+        error(['The evolutionary rule "' func2str(the_rule{1}) ...
+            '" cannot be found on the current path. Check your config file.']);
+    end
+    
+end
+
 %generate a function handle to the user defined fitness function
 checkfile = exist(func2str(gp.fitness.fitfun),'file');
 if ~(checkfile == 2 ) &&  ~(checkfile == 3) && ~(checkfile == 5) && ~(checkfile == 6)

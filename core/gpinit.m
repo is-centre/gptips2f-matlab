@@ -84,7 +84,7 @@ if ~gp.runcontrol.quiet
     disp('-------------------------------------------------------------------------');
     disp('GPTIPS 2F');
     disp('Symbolic data mining platform for MATLAB evolved');
-    disp('Copyright (C) Dominic Searson* 2009-2015, Aleksei Tepljakov& 2017');
+    disp('Copyright (C) Dominic Searson* 2009-2015, Aleksei Tepljakov& 2017-');
     disp(' ');
     disp('Contact: * - searson@gmail.com, & - alex@starspirals.net');
     disp(' ');
@@ -142,6 +142,15 @@ if ~gp.runcontrol.quiet
         disp('List of ADF functions:');
         for k=1:length(gp.nodes.adf.name)
            disp(['   ' gp.nodes.adf.name{k} ': ' gp.nodes.adf.eval{k}]); 
+        end
+    end
+    
+    % If evolutionary rules are applied, list them at this point
+    if gp.evolution.rules.use
+        disp('Using evolutionary rules:');
+        for k=1:length(gp.evolution.rules.sets)
+            the_rule = gp.evolution.rules.sets{k};
+            disp(['   ' func2str(the_rule{1})]);
         end
     end
     

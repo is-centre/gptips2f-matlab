@@ -37,7 +37,6 @@ if mgregressmodel
         gp.fitness.r2test = zeros(gp.runcontrol.pop_size,1);
         minTestRMSE = Inf;
         testdata = true;
-        gp.results.testbest.about = 'Best individual on testing data (in final population)';
     end
     
 end
@@ -99,6 +98,7 @@ for i=1:gp.runcontrol.pop_size
             
             if gpmodel.test.rmse < minTestRMSE
                 minTestRMSE = gpmodel.test.rmse;
+				gp.results.testbest.about = 'Best individual on testing data (in final population)';
                 gp.results.testbest.complexity  = gp.fitness.complexity(i,1);
                 gp.results.testbest.nodecount  = gp.fitness.nodecount(i,1);
                 gp.results.testbest.fitness = gpmodel.train.rmse;
