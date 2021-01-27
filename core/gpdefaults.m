@@ -142,8 +142,8 @@ gp.evolution.about = 'High level evolution control';
 gp.evolution.rules.use = false;    % Do not use rules by default
 gp.evolution.rules.sets = {};      % Rules for evolution
 gp.evolution.rules.strict = true;  % If true, accept only two distinct values for fitness, 0 and 1. TODO: Implementation
-gp.evolution.rules.attempts = 100; % Number of attempts to recreate an individual if the rules are killing off the other one
-gp.evolution.rules.kills = 0;      % Number of individuals that were killed off due to not being fit
+gp.evolution.rules.attempts = 100; % Number of attempts to recreate an individual if the rules are discarding the other one
+gp.evolution.rules.discards = 0;   % Number of individuals that were discarded from the population due to not being fit via rules
 gp.evolution = orderfields(gp.evolution);
 
 gp = orderfields(gp);

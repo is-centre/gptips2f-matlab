@@ -40,9 +40,9 @@ gp.state.count = gp.state.count + 1;
 
 buildCount = 0;
 
-% Used in killing individuals with traits that we do not want them to have
+% Used in discarding individuals with traits that we do not want them to have
 % Obviously, it is reset once per generating a new population
-killed_off_count = 0;
+discard_count = 0;
 
 %loop until the required number of new individuals has been built.
 while buildCount < num2build
@@ -266,24 +266,24 @@ while buildCount < num2build
     
     % AT: We now check the evolution rules. If an individual has genes that
     % are not acceptable from the point of view of "survival", then the
-    % complete individual is killed off and new ones are generated to take
+    % complete individual is discarded and new ones are generated to take
     % its place. In order to keep the algorithm deterministic, this is only
     % done in a limited amount of attempts. This means that defective genes
     % can still enter the population. TODO: Can we play nature in this
-    % respect also and just kill those off without generating new ones?
+    % respect also and just discard those without generating new ones?
     
     % But in order to discard individuals we just reset the counter.
     
-    % kill_off variable is defined outside the if statement since
+    % discard variable is defined outside the if statement since
     % it is necessary for the caching mechanism to be able to store the
     % cached value later for the direct copy method even if rules are
     % disabled in the config
-    kill_off = false;
+    discard = false;
     
-    if gp.evolution.rules.use && killed_off_count < gp.evolution.rules.attempts
+    if gp.evolution.rules.use && discard_count < gp.evolution.rules.attempts
         
         n = thisBuildCount;
-        while (n <= buildCount && ~kill_off)
+        while (n <= buildCount && ~discard)
             % Check every individual's genes against every rule
             % NB! Potential bug... multigene vs. single gene regression?
             for m=1:length(gp.evolution.rules.sets)
@@ -301,8 +301,8 @@ while buildCount < num2build
                   [gp, fit] = rule_fun(gp, expr, rule_par);
                   if gp.evolution.rules.strict
                       if fit < 1.0
-                          kill_off = true;
-                          killed_off_count = killed_off_count + 1;
+                          discard = true;
+                          discard_count = discard_count + 1;
                       end
                   else
                       % TODO
@@ -318,18 +318,18 @@ while buildCount < num2build
             n = n + 1;
         end
         
-        if kill_off
+        if discard
             % The individual did not pass evolutionary rules and is discarded.
             % The population counter is rewound by the necessary number of
             % positions
             buildCount = thisBuildCount - 1; % to take into account the +1 in the beginning of the loop
-            gp.evolution.rules.kills = gp.evolution.rules.kills + 1;
+            gp.evolution.rules.discards = gp.evolution.rules.discards + 1;
         end
         
     end
     
     % After checking the rules, store the cache for direct copy event
-    if eventType == 2 && gp.runcontrol.usecache && ~kill_off
+    if eventType == 2 && gp.runcontrol.usecache && ~discard
        gp.fitness.cache(buildCount) = cachedData;
     end
     

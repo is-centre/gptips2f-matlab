@@ -2,7 +2,7 @@
 
 GPTIPS2F is the evolution of the second version of the MATLAB toolbox developed by Dr. Dominic Searson.
 
-Since 2017, the a fork of the toolbox (‘2F’) is maintained by Dr. Aleksei Tepljakov, TalTech University, https://taltech.ee/
+Since 2017, a fork of the toolbox (‘2F’) is maintained by Dr. Aleksei Tepljakov, TalTech University, https://taltech.ee/
 
 **Note that the version number of GPTIPS2F has been reset to 1.0 since Dec 6, 2018.**
 
@@ -10,7 +10,7 @@ Since 2017, the a fork of the toolbox (‘2F’) is maintained by Dr. Aleksei Te
 
 * Preset Random Constants (PRCs): a subset of Ephemeral Random Constants (ERCs) the difference being that PRCs are randomly chosen from a predefined set.
 * Automatically Defined Functions (ADFs): basically templates that are seeded into the initial population and can also arise naturally during mutation.
-* Evolutionary rules: define rules for either outright killing individuals with certain undesirable traits or significantly decrease their chances of survival (alpha testing feature).
+* Evolutionary rules: define rules for discarding individuals with certain undesirable traits or significantly decrease their chances of staying in the population (alpha testing feature).
 
 ## Installation ##
 
@@ -55,7 +55,7 @@ gp.nodes.adf.arg_force = true;
 
 ## A brief on how to use Rules ##
 
-Evolutionary rules allow to either "kill off" or otherwise decrease the chances of survival of individuals having certain traits. These traits must be extracted from symbolic gene expressions and tested in user-defined rule functions. An example of how to structure the latter can be found in the `rules` folder under the name `gprule_template.m`.
+Evolutionary rules allow to either discard or otherwise decrease the chances of survival of individuals having certain traits. These traits must be extracted from symbolic gene expressions and tested in user-defined rule functions. An example of how to structure the latter can be found in the `rules` folder under the name `gprule_template.m`.
 
 There is also an implemented rule called `gprule_no_nested_adfs.m` available in the same folder. This rule will allow to remove from the population any individual who has genes where nested ADFs appear. This is useful for a certain class of regression problems. In the config function, this rule is set up as follows:
 ```
@@ -64,4 +64,4 @@ gp.evolution.rules.use = true;
 gp.evolution.rules.sets = {{@gprule_no_nested_adfs, []}};
 ```
 
-**Note that this is an alpha feature (no pun intended). It is working, but has to be tested.**
+**Note that this is an alpha feature.**
