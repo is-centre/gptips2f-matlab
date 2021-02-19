@@ -151,6 +151,50 @@ if ~gp.state.run_completed || gp.state.force_compute_theta
         return;
     end
     
+    %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+    % TESTING FEATURE - are there any solid statistical arguments
+    % for implementing it?
+    %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+    % We only apply additional optimization if requested and if
+    % theta has good values (so we do this as the last operation 
+    % before theta is assigned and the fitness value is computed)
+    if gp.runcontrol.thetaCalc.doOptimize
+        
+        % We want the bias term (constant ~ intercept) to be zero
+        % So we define the objective function accordingly
+        if gp.runcontrol.thetaCalc.zeroBias
+            J = @(x) sum((y-geneOutputs*[0; x(2:end)]).^2); 
+        else
+            J = @(x) sum((y-geneOutputs*x).^2); 
+        end
+        
+        if gp.runcontrol.thetaCalc.randInit
+            x0 = rand(size(theta));
+        else
+            if isempty(gp.runcontrol.thetaCalc.init)
+                x0 = theta;
+            else
+                x0 = gp.runcontrol.thetaCalc.init;
+            end
+        end
+        
+        % Can a better theta be obtained?
+%         theta_old = theta;
+        theta = gp.runcontrol.thetaCalc.optimizer(J, x0, ...
+            gp.runcontrol.thetaCalc.optOpt);
+        
+        % In case of "zero bias", need to modify returned theta
+        if gp.runcontrol.thetaCalc.zeroBias
+            theta = [0; theta(2:end)];
+        end
+        
+%         disp('Old theta');
+%         theta_old
+%         disp('New theta');
+%         theta
+    end
+    %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+    
     %write coeffs to returnvalues field for storage
     gp.fitness.returnvalues{gp.state.current_individual} = theta;
     

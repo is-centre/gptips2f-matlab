@@ -14,20 +14,30 @@ function gp = gpdefaults()
 gp.runcontrol.about = 'Run control';
 gp.runcontrol.pop_size = 100;				        
 gp.runcontrol.num_gen = 150;				                                                                        
-gp.runcontrol.verbose = 10;             %the generation frequency with which results are printed to CLI                 
+gp.runcontrol.verbose = 10;                 %the generation frequency with which results are printed to CLI                 
 gp.runcontrol.savefreq = 0;                     
-gp.runcontrol.quiet = false;            %if true, then GPTIPS runs with no CLI output
-gp.runcontrol.parallel.auto = false;     %use the parallel computing toolbox by default with autosizing if possible
-gp.runcontrol.parallel.enable = false;  %true to manually enable parallel CPU fitness evals (requires Parallel Computing Toolbox)
-gp.runcontrol.parallel.ok = false;      %internal flag set if parallel tbx is set up correctly
-gp.runcontrol.parallel.numWorkers = 0;  %if parallel fitness evals enabled, this is the number of "workers" to use, e.g. number of cores.
-gp.runcontrol.parallel.autosize = true; %automatically determine and set gp.runcontrol.parallel.numWorkers if possible
-gp.runcontrol.showBestInputs = false;   %if true then shows inputs in 'best' individual during run
-gp.runcontrol.showValBestInputs = false;%if true then shows inputs in 'valbest' individual during run
-gp.runcontrol.timeout = inf;            %gp run will terminate if the run exceeds this values (seconds);
-gp.runcontrol.runs = 1;                 %number of independent runs to perform and then merge
-gp.runcontrol.suppressConfig = true;    %true to only evaluate the config file for the first run in a merged multirun
-gp.runcontrol.usecache = true;         %fitness caching: used when copying individuals in a gen
+gp.runcontrol.quiet = false;                %if true, then GPTIPS runs with no CLI output
+gp.runcontrol.parallel.auto = false;        %use the parallel computing toolbox by default with autosizing if possible
+gp.runcontrol.parallel.enable = false;      %true to manually enable parallel CPU fitness evals (requires Parallel Computing Toolbox)
+gp.runcontrol.parallel.ok = false;          %internal flag set if parallel tbx is set up correctly
+gp.runcontrol.parallel.numWorkers = 0;      %if parallel fitness evals enabled, this is the number of "workers" to use, e.g. number of cores.
+gp.runcontrol.parallel.autosize = true;     %automatically determine and set gp.runcontrol.parallel.numWorkers if possible
+gp.runcontrol.showBestInputs = false;       %if true then shows inputs in 'best' individual during run
+gp.runcontrol.showValBestInputs = false;    %if true then shows inputs in 'valbest' individual during run
+gp.runcontrol.timeout = inf;                %gp run will terminate if the run exceeds this values (seconds);
+gp.runcontrol.runs = 1;                     %number of independent runs to perform and then merge
+gp.runcontrol.suppressConfig = true;        %true to only evaluate the config file for the first run in a merged multirun
+gp.runcontrol.usecache = true;              %fitness caching: used when copying individuals in a gen
+% --- EXPERIMENTAL ---
+gp.runcontrol.thetaCalc.doOptimize = false;      % Run additional optimization on the LS theta vals for MG
+gp.runcontrol.thetaCalc.optimizer = @fminsearch; % The algorithm to use as the optimizer. NB! Calling seq: (f, x0, opt)
+gp.runcontrol.thetaCalc.init = [];               % Initialize the solution. If [], will use theta to try to improve it. 
+gp.runcontrol.thetaCalc.randInit = false;        % Will override the previous setting and do rand(size(theta))
+gp.runcontrol.thetaCalc.optOpt = ...
+    optimset('disp', 'none', 'maxIter', 100);    % Additional optimization options
+gp.runcontrol.thetaCalc.zeroBias = false;        % Only valid if doOptimize=true: make the intercept zero
+gp.runcontrol.thetaCalc = orderfields(gp.runcontrol.thetaCalc);
+% % % % % % % % % % % %
 gp.runcontrol = orderfields(gp.runcontrol);
 
 gp.selection.about = 'Selection';            
