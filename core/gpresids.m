@@ -1,7 +1,7 @@
 function varargout = gpresids(gp, ID, opts)
 %VALIDATE Validate regression results
 %
-% Usage:  [ERR, STATS] = RESIDS(GP, ID, OPTS)
+% Usage:  [ERR, STATS] = GPRESIDS(GP, ID, OPTS)
 %
 %         where ERR is the optional output argument which contains the
 %                   absolute error vector y - y_reg
