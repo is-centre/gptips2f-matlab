@@ -93,7 +93,10 @@ for run=1:gp.runcontrol.runs
     
     %main generation loop
     for count=1:gp.runcontrol.num_gen
-        
+       %MT NEW GLOBAL VERAIBLE TO APPLY EVOLUTION RULE ONLY AT CERTAIN GENERATION 
+       global genCount
+       genCount=count;
+       disp(genCount);
         %start gen timer
         gp = gptic(gp);
         

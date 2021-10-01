@@ -296,6 +296,7 @@ while buildCount < num2build
                thisGene = newPop{n};
                for k=1:length(thisGene)
                   expr = thisGene{k};
+                  %disp(thisGene);
                   
                   % Evaluate the expression via the rule
                   [gp, fit] = rule_fun(gp, expr, rule_par);

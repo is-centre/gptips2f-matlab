@@ -1,4 +1,3 @@
-
 % GPDEMO4 GPTIPS 2 demo of multigene symbolic regression on a concrete compressive strength data set.
 %
 %   The output being modelled is concrete compressive strength (MPa) and

@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta http-equiv="content-type" content="text/html; charset=utf-8" name="description" content="GPTIPS 2 pareto report" name="author" content="Dominic Searson"/>
+<title>GPTIPS pareto front report. Data: Dynamic system identification test with ADFs</title>
+<script type="text/javascript" src="http://www.google.com/jsapi"></script>
+<script type="text/javascript">google.load('visualization', '1', {packages: ['table']});
+</script>
+<link href='http://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css'>
+<style>
+h1, h2, h3 {
+color: #0073bd; margin-top: 20px; 
+}
+p.warn {
+color: #993300; 
+}
+.google-visualization-table-table .google-visualization-table-td-number {
+font-family: 'Open Sans','Helvetica Neue', Helvetica, Arial, sans-serif;text-align: left;
+}
+.google-visualization-table-td {
+padding-top: 6px;padding-bottom: 6px;font-size: 14px;
+}
+</style>
+<script type="text/javascript">
+function drawPerformanceTable() {
+var data = new google.visualization.DataTable();
+data.addColumn('number','Model ID');
+data.addColumn('number','Goodness of fit (R<sup>2</sup>)');
+data.addColumn('number','Model complexity');
+data.addColumn('string','Model');
+data.addRows(19);
+data.setCell(0,0, 11);
+data.setCell(0,1, 0.956);
+data.setCell(0,2, 13);
+data.setCell(0,3, '0.184 simp_f_c1(1/2, u<span style="position:relative;bottom: 0.3em;font-size:0.7em">2</span>, t, -6901/10000) - 0.0125 u + 0.0139');
+data.setCell(1,0, 20);
+data.setCell(1,1, 1);
+data.setCell(1,2, 49);
+data.setCell(1,3, '1.81e-5 t - 8.13e-7 t<span style="position:relative;bottom: 0.3em;font-size:0.7em">2</span> - 0.00269 u<span style="position:relative;bottom: 0.3em;font-size:0.7em">2</span> + 0.049 simp_f_c2(1/5, u<span style="position:relative;bottom: 0.3em;font-size:0.7em">2</span>, simp_f(1/2, t, -7, -432/625), -9123/10000) + 0.0643 simp_f_c1(1/2, u<span style="position:relative;bottom: 0.3em;font-size:0.7em">2</span>, t, 1/2) - 3.26e-4');
+data.setCell(2,0, 53);
+data.setCell(2,1, 0.834);
+data.setCell(2,2, 6);
+data.setCell(2,3, '8.77e-4 t + 0.00145 t u + 0.0366');
+data.setCell(3,0, 100);
+data.setCell(3,1, 0.998);
+data.setCell(3,2, 30);
+data.setCell(3,3, '0.161 simp_f_c2(1/5, u<span style="position:relative;bottom: 0.3em;font-size:0.7em">2</span>, simp_f(1/5, t, 1/10, -432/625), -9123/10000) - 2.67e-4 t + 0.00506');
+data.setCell(4,0, 110);
+data.setCell(4,1, 0.995);
+data.setCell(4,2, 17);
+data.setCell(4,3, '6.53e-4 t - 0.0148 u<span style="position:relative;bottom: 0.3em;font-size:0.7em">2</span> + 0.165 simp_f_c1(1/2, u<span style="position:relative;bottom: 0.3em;font-size:0.7em">2</span>, t, -6901/10000) - 0.0116');
+data.setCell(5,0, 123);
+data.setCell(5,1, 1);
+data.setCell(5,2, 39);
+data.setCell(5,3, '0.00243 u<span style="position:relative;bottom: 0.3em;font-size:0.7em">2</span> + 0.559 simp_f_c2(1/5, u<span style="position:relative;bottom: 0.3em;font-size:0.7em">2</span>, simp_f(-8759/2500, t, -7, -432/625), t) + 0.11 simp_f_c1(1/2, u<span style="position:relative;bottom: 0.3em;font-size:0.7em">2</span>, t, -6901/10000) + 7.01e-5');
+data.setCell(6,0, 139);
+data.setCell(6,1, 1);
+data.setCell(6,2, 40);
+data.setCell(6,3, '2.4e-4 u + 0.00225 u<span style="position:relative;bottom: 0.3em;font-size:0.7em">2</span> + 0.558 simp_f_c2(1/5, u<span style="position:relative;bottom: 0.3em;font-size:0.7em">2</span>, simp_f(-8759/2500, t, -7, -432/625), t) + 0.11 simp_f_c1(1/2, u<span style="position:relative;bottom: 0.3em;font-size:0.7em">2</span>, t, -6901/10000) + 4.89e-5');
+data.setCell(7,0, 160);
+data.setCell(7,1, 0.998);
+data.setCell(7,2, 26);
+data.setCell(7,3, '0.131 simp_f_c2(1/5, u<span style="position:relative;bottom: 0.3em;font-size:0.7em">2</span>, simp_f(1/5, t, -7, -432/625), -9123/10000) - 4.82e-4 t + 0.00967');
+data.setCell(8,0, 161);
+data.setCell(8,1, 0.993);
+data.setCell(8,2, 15);
+data.setCell(8,3, '7.37e-4 t + 0.149 simp_f_c1(1/2, u<span style="position:relative;bottom: 0.3em;font-size:0.7em">2</span>, t, -6901/10000) - 0.0137');
+data.setCell(9,0, 242);
+data.setCell(9,1, 1);
+data.setCell(9,2, 37);
+data.setCell(9,3, '0.00121 u + 0.548 simp_f_c2(1/5, u<span style="position:relative;bottom: 0.3em;font-size:0.7em">2</span>, simp_f(-9123/10000, t, -7, -432/625), t) + 0.112 simp_f_c1(1/2, u<span style="position:relative;bottom: 0.3em;font-size:0.7em">2</span>, t, -6901/10000) + 5.5e-5');
+data.setCell(10,0, 257);
+data.setCell(10,1, 1);
+data.setCell(10,2, 37);
+data.setCell(10,3, '0.00121 u + 0.548 simp_f_c2(1/5, u<span style="position:relative;bottom: 0.3em;font-size:0.7em">2</span>, simp_f(-8759/2500, t, -7, -432/625), t) + 0.112 simp_f_c1(1/2, u<span style="position:relative;bottom: 0.3em;font-size:0.7em">2</span>, t, -6901/10000) + 5.5e-5');
+data.setCell(11,0, 273);
+data.setCell(11,1, 1);
+data.setCell(11,2, 96);
+data.setCell(11,3, '0.764 simp_f_c2(1/5, u<span style="position:relative;bottom: 0.3em;font-size:0.7em">2</span>, simp_f(1/5, t, -7, -432/625), t) - 0.0308 simp_f_c2(1/5, u<span style="position:relative;bottom: 0.3em;font-size:0.7em">2</span>, simp_f(-8759/2500, t, -7, -432/625), -9123/10000) + 0.0528 simp_f_c1(1/2, u<span style="position:relative;bottom: 0.3em;font-size:0.7em">2</span>, t, -6901/10000) + 0.101 simp_f_c1(2161/5000, u<span style="position:relative;bottom: 0.3em;font-size:0.7em">2</span>, t, -6901/10000) - 6.45e-5');
+data.setCell(12,0, 315);
+data.setCell(12,1, 1);
+data.setCell(12,2, 37);
+data.setCell(12,3, '0.00121 u + 0.548 simp_f_c2(1/5, u<span style="position:relative;bottom: 0.3em;font-size:0.7em">2</span>, simp_f(t, t, -7, -432/625), t) + 0.112 simp_f_c1(1/2, u<span style="position:relative;bottom: 0.3em;font-size:0.7em">2</span>, t, -6901/10000) + 5.5e-5');
+data.setCell(13,0, 320);
+data.setCell(13,1, 0.998);
+data.setCell(13,2, 30);
+data.setCell(13,3, '0.161 simp_f_c2(1/5, u<span style="position:relative;bottom: 0.3em;font-size:0.7em">2</span>, simp_f(1/5, t, 1/10, -432/625), -9123/10000) - 2.67e-4 t + 0.00506');
+data.setCell(14,0, 372);
+data.setCell(14,1, 0.999);
+data.setCell(14,2, 36);
+data.setCell(14,3, '0.049 simp_f_c2(1/5, u<span style="position:relative;bottom: 0.3em;font-size:0.7em">2</span>, simp_f(1/2, t, -7, -432/625), -9123/10000) + 0.0784 simp_f_c1(1/2, u<span style="position:relative;bottom: 0.3em;font-size:0.7em">2</span>, t, -6901/10000) - 7.12e-5');
+data.setCell(15,0, 373);
+data.setCell(15,1, 0.573);
+data.setCell(15,2, 5);
+data.setCell(15,3, '0.00224 t + 0.0215');
+data.setCell(16,0, 384);
+data.setCell(16,1, 0.995);
+data.setCell(16,2, 22);
+data.setCell(16,3, '4.47e-6 (t + 4.42)<span style="position:relative;bottom: 0.3em;font-size:0.7em">2</span> + 0.153 simp_f_c1(0.5, u<span style="position:relative;bottom: 0.3em;font-size:0.7em">2</span>, t, -0.69) + 8.07e-4');
+data.setCell(17,0, 392);
+data.setCell(17,1, 0.573);
+data.setCell(17,2, 1);
+data.setCell(17,3, '0.00224 t + 0.0215');
+data.setCell(18,0, 432);
+data.setCell(18,1, 1);
+data.setCell(18,2, 43);
+data.setCell(18,3, '1.57e-5 t - 8.05e-7 t<span style="position:relative;bottom: 0.3em;font-size:0.7em">2</span> - 0.00578 u<span style="position:relative;bottom: 0.3em;font-size:0.7em">2</span> + 0.078 simp_f_c2(1/5, u<span style="position:relative;bottom: 0.3em;font-size:0.7em">2</span>, simp_f(-8759/2500, t, -7, -432/625), -9123/10000) + 0.0525 simp_f_c1(1/2, u<span style="position:relative;bottom: 0.3em;font-size:0.7em">2</span>, t, 1/2) - 3.26e-4');
+viz = new google.visualization.Table(document.getElementById('perf_table'));
+viz.draw(data,  {width: 1000, allowHtml: true});}
+google.setOnLoadCallback(drawPerformanceTable);
+ </script>
+</head>
+<body>
+<body style="font-family: 'Open Sans','Helvetica Neue', Helvetica, Arial, sans-serif; border: 0;">
+<div style="text-align: left; margin-bottom: 50px;margin-top: 50px;margin-left: 15px;"><h2>GPTIPS pareto front report</h2><p>04-Dec-2018 17:10:41</p>
+<p>Data: Dynamic system identification test with ADFs</p>
+<p>Config file: gp_fo_test_52.m</p>
+<p>Number of models on front: 19</p><p>Total models: 500</p><p style="margin-top: 30px;">This report shows the expressional complexity/performance characteristics (on training data) of symbolic models on the pareto front.</p><p>Numerical precision is reduced for display purposes.</p><p style="margin-bottom: 30px;">Click on column headers to sort models by expressional complexity and goodness of fit (R<sup>2</sup>).</p><div id="perf_table"></div>
+<p style="color:gray;text-align:center;margin-top: 50px;">GPTIPS - the symbolic data mining platform for MATLAB</p><p style="color:gray;text-align:center;">&#169; Dominic Searson 2009-2015</p></div>
+</body>
+</html>

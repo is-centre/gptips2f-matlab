@@ -33,12 +33,14 @@ while k <= length(expr)
     
     if strcmpi(expr(k), '(') && adf_found
         open_count = open_count + 1;
+        disp('a');
     end
     
     if strcmpi(expr(k), ')') && adf_found
         open_count = open_count - 1;
         if open_count == 0
             adf_found = false;
+            disp('a');
         end
     end
     

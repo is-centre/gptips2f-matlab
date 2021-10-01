@@ -68,7 +68,6 @@ end
 %retrieve regression weights
 theta = gp.results.best.returnvalues;
 
-
 %calc. prediction of validation data set using the retreived weights
 ypredval = gene_outputs * theta;
 

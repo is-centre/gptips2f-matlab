@@ -89,7 +89,7 @@ gp.userdata.xtest = [gp.userdata.xtest 100*randn(size(gp.userdata.xtest,1),50) ]
 gp.userdata.xval = [gp.userdata.xval 100*randn(size(gp.userdata.xval,1),50) ];
 
 %enables hold out validation set
-gp.userdata.user_fcn = @regressmulti_fitfun_validate; 
+gp.userdata.user_fcn = @regressmulti_fitfun_new; 
 
 %give known variables aliases (this can include basic HTML markup)
 gp.nodes.inputs.names = {'Cement','Slag','Ash','Water','Plastic','Course','Fine','Age'};
